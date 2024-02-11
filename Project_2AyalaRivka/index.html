@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Get Started</title>
+   
+    
+
+</head>
+
+<body>
+    <embed type="text/html" src="layout/header.html">
+    
+ 
+            <h1 class="entry-title" itemprop="headline">Get Started</h1>
+            <div class="center-container">
+            <button onclick="document.getElementById('id01').style.display='block'">Sign in</button>
+            <button onclick="document.getElementById('id02').style.display='block'">Sign up</button>
+            </div>
+        
+            <div id="id01" class="modal">
+            <form class="modal-content animate" onsubmit="return loginUser()";>
+              <h2>Welcome Back ! </h2>
+              <h5>Log in to access your account.</h5>
+                <div class="imgcontainer">
+                    <span class="close" onclick="document.getElementById('id01').style.display='none'">&times;</span>
+                    <img src="assets/avatar.png" class="avatar" alt="User Avatar">
+                </div>
+        
+                <div class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required> <br>
+        
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required><br>
+
+                  <span class="psw">Forgot <a href="#">password?</a></span>
+                   
+                  <div id="remember">
+                    <input type="checkbox" value="lsRememberMe" id="rememberMe">
+                    <label>Remember me</label>
+                </div>
+        
+                    <button class="submit-btn" type="submit">Login</button><br>
+                  </div>
+                </div>
+        
+                
+            </form>
+          </div>
+          <div id="id02" class="modal">
+            <form class="modal-content animate" onsubmit="return signUpUser()">
+              <h2> Join us today !</h2>
+              <h5> Sign up now to become a member.</h5>
+                <div class="imgcontainer">
+                    <span class="close" onclick="document.getElementById('id02').style.display='none'">&times;</span>
+                    <img src="assets/avatar.png" class="avatar" alt="User Avatar">
+                </div>
+    
+                <div class="container">
+
+                  <label for="signup-name"><b>Name</b></label> 
+                  <label for="lsignup-lastName"><b>Lastname</b></label>
+                    <input type="text" placeholder="Name" name="signup-name" required>
+                     <input type="text" placeholder="Last Name" name="signup-lastName" required> <br>
+
+                    <label for="signup-username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="signup-username" required> <br>
+    
+                    <label for="signup-psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="signup-psw" required><br>
+    
+                    <label for="confirm-psw"><b>Confirm Password</b></label>
+                    <input type="password" placeholder="Confirm Password" name="confirm-psw" required><br>
+
+                    <ul class="helper-text">
+                      <li class="length">Must be at least 8 characters long.</li>
+                      <li class="lowercase">Must contain a lowercase letter.</li>
+                      <li class="uppercase">Must contain an uppercase letter.</li>
+                      <li class="special">Must contain a number or special character.</li>
+                  </ul>
+    
+                    <button class="submit-btn" type="submit">Sign Up</button><br>
+                </div>
+            </form>
+        </div>
+ <embed type="text/html" src="layout/footer.html" class="footer">
+
+<script src="script.js"></script>
+</body>
+
+</html>

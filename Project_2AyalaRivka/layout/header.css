@@ -1,0 +1,65 @@
+body {
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main {
+    height: 98%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: blueviolet;
+    color:turquoise;
+    padding: 1em;
+    text-align: center;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.logo {
+    width: 30px;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 2s linear 1;
+    
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+    color: pink;
+}
+
+nav li a {
+    color: pink;
+}
+
+
+@media (max-width: 800px) {
+    .logo {
+        visibility: hidden;
+    }
+}

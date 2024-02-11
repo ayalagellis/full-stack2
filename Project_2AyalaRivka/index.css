@@ -1,0 +1,211 @@
+body {
+    font-family: Verdana, sans-serif;;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    margin-left:100;
+    overflow: hidden;
+   
+}
+
+embed {
+    width: 100%;
+}
+
+.main {
+    height: 98%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+embed.footer {
+    background-color: black;
+    padding: 1em;
+    padding-bottom: 0.5%;
+    position: fixed;
+    bottom: 0;
+    padding-left: 0;
+    height: 25px;
+}
+
+main {
+    padding: 20px;
+}
+
+.entry-title {
+    font-family: Verdana, sans-serif;
+    font-size: 2em;
+    text-align: center;
+    margin: 50px;
+    margin-left: 80px;
+    padding: 10;
+    
+}
+h2 {
+  color: blueviolet; /* Choisissez la couleur que vous souhaitez */
+}
+h2, h5 {
+    margin: 0; /* Supprime les marges par défaut */
+    padding: 5px 0; /* Ajoute un léger espacement en haut et en bas */
+}
+.center-container {
+  background-color: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Permet de centrer verticalement sur toute la hauteur de la vue */
+    margin: 0; /
+}
+button {
+    background-color: blueviolet; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 20px; /* Remplissage interne du bouton */
+    border: none; /* Supprimer la bordure du bouton */
+    text-align: center; /* Centrer le texte du bouton */
+    text-decoration: none; /* Supprimer la décoration du texte (si nécessaire) */
+    display: inline-block; /* Permettre au bouton de s'ajuster à la largeur du texte */
+    font-size: 25px; /* Taille du texte */
+    border: 2px solid blueviolet; /* Ajoutez une bordure initiale */
+    border-radius: 8px;
+    margin: -750px 10px 0 50px; /* Centrer le bouton par rapport à son conteneur */
+  
+}
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  border-color: turquoise;
+ 
+}
+@media (max-width: 500px) {
+  button {
+      margin: 10px 10px 0 10px; /* Ajustez la marge pour les écrans plus petits */
+  }
+}
+.modal {
+   
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    border-radius: 8px;
+    padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%; /* Ajustez la largeur selon vos besoins */
+    margin: 60px auto 0; /* Centrer horizontalement et déplacer vers le bas de 50px */
+    border-radius: 20px; /* Arrondir tous les coins */
+    position: relative;
+}
+
+  /* The Close Button */
+  .close {
+    /* Position it in the top right corner inside of the modal */
+    position: absolute;
+    right: 0;
+    top: -10px;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+    margin: 10px; /* Ajoutez une marge pour l'esthétique */
+    margin: 10px; /* Ajoutez une marge pour l'esthétique */
+    transform-origin: center; /* Centre du bouton comme point d'origine pour le zoom */
+    transition: transform 0.6s; /* Transition pour l'effet de zoom */
+}
+  /* Close button on hover */
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+    transform: scale(1.2);
+
+  }
+  
+  
+  @keyframes zoomAnimation {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}
+.avatar {
+  width: 100px; /* ajustez la largeur souhaitée */
+  height: auto; /* permet de conserver les proportions originales de l'image */
+  display: block; /* permet de centrer l'image avec margin auto */
+  margin: 0 auto; /* centre l'image horizontalement */
+
+ }
+  
+ .container{ 
+  background-color: white;
+  text-align: center; /* Centre horizontalement */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre verticalement */
+    width: 60%; /* Ajustez la largeur selon vos besoins */
+    margin: auto; /* Centrer horizontalement */
+    border-radius: 10px; /* Arrondir tous les coins */
+  
+}
+.remember {
+  display: flex;
+  align-items: center;
+  margin-top: 10px; /* Ajoute une marge en haut pour l'espacement */
+  
+}
+
+.remember input[type="checkbox"] {
+  display: inline-block;
+  /* Ajoutez ici d'autres styles spécifiques pour la case à cocher si nécessaire */
+}
+
+.remember label {
+  margin-left: 5px; /* Ajoute une marge à gauche pour l'espace entre la case à cocher et le texte */
+
+}
+.helper-text{
+  
+  font-size: 10px;
+  margin: center;
+}
+.submit-btn {
+  background-color:blueviolet;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 10px 10px 0 20px;
+}
+ 
+@media (max-width: 500px) {
+  .modal-content {
+      width: 90%; /* Ajustez la largeur pour les écrans plus petits */
+  }
+}
+ 
+@media (max-width: 500px) {
+  .submit-btn {
+      margin: 10px 10px 0 10px; /* Ajustez la marge pour les écrans plus petits */
+  }
+}
+
+ 
+
