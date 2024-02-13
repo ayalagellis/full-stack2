@@ -1,27 +1,25 @@
-
-<div class="popup">
-  <button class="playAgain">play Again</button>
-</div>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/snake.css">
-    <title>Get Started</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="/CSS/snake.css">
 
 </head>
-<body>
-<h1>Nokia 3310 snake</h1>
-<div class="scoreDisplay"></div>
-<div class="grid"></div>
-<div class="button">
-  <button class="top">top</button>
-  <button class="bottom">bottom</button>
-  <button class="left">left</button>
-  <button class="right">right</button>
-</div>
+
+
+<body onload="startGame()">
+
+    <div class="container">
+        <button onclick="moveup()">UP</button>
+        <button onclick="movedown()">DOWN</button>
+        <button onclick="moveleft()">LEFT</button>
+        <button onclick="moveright()">RIGHT</button>
+        <a href="/HTML/games.html" class="home-button">
+            <img src="https://png.pngtree.com/png-clipart/20221219/original/pngtree-cartoon-house-illustration-png-image_8780795.png" alt="Home" width="40" height="40">
+        </a>
+        <button class="restart" onclick="startGame()">RESTART</button>      
+      </div>
+      
 <script src="/JS/snake.js"></script>
 
 </body>

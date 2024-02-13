@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <embed type="text/html" src="./header.html">
 
+    <embed type="text/html" src="./header.html">
 
             <h1 class="entry-title" itemprop="headline">Get Started</h1>
             <div class="center-container">
@@ -21,21 +21,22 @@
             <button onclick="document.getElementById('id02').style.display='block'">Sign up</button>
             </div>
 
+
+
             <div id="id01" class="modal">
-            <form class="modal-content animate" onsubmit="return loginUser()";>
+            <form class="modal-content animate" onsubmit="loginUser()";>
               <h2>Welcome Back ! </h2>
               <h5>Log in to access your account.</h5>
                 <div class="imgcontainer">
                     <span class="close" onclick="document.getElementById('id01').style.display='none'">&times;</span>
                     <img src="/MEDIA/avatar.png" class="avatar" alt="User Avatar">
                 </div>
-
                 <div class="container">
                     <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" required> <br>
+                    <input type="text" placeholder="Enter Username" id="uname" required> <br>
 
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required><br>
+                    <input type="password" placeholder="Enter Password" id="psw" required><br>
 
                   <span class="psw">Forgot <a href="#">password?</a></span>
 
@@ -44,16 +45,18 @@
                     <label>Remember me</label>
                 </div>
 
-                    <a href="./games.html" class="submit-btn">Login</a><br>
+                    <a href="./games.html" onclick="loginUser()" class="submit-btn">Login</a><br>
+
                     
                   </div>
                 </div>
-
-
             </form>
           </div>
+  
+
+
           <div id="id02" class="modal">
-            <form class="modal-content animate" onsubmit="return signUpUser()">
+            <form class="modal-content animate" onsubmit="signUpUser()">
               <h2> Join us today !</h2>
               <h5> Sign up now to become a member.</h5>
                 <div class="imgcontainer">
@@ -69,13 +72,14 @@
                      <input type="text" placeholder="Last Name" name="signup-lastName" required> <br>
 
                     <label for="signup-username"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="signup-username" required> <br>
+                    <input type="text" placeholder="Enter Username" id="name" required> <br>
 
                     <label for="signup-psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="signup-psw" required><br>
+                    <input type="password" placeholder="Enter Password" id="pw" required><br>
 
                     <label for="confirm-psw"><b>Confirm Password</b></label>
-                    <input type="password" placeholder="Confirm Password" name="confirm-psw" required><br>
+                    <input type="password" placeholder="Confirm Password" id="pw" required><br>
+
 
                     <ul class="helper-text">
                       <li class="length">Must be at least 8 characters long.</li>
@@ -84,13 +88,13 @@
                       <li class="special">Must contain a number or special character.</li>
                   </ul>
 
-                    <button class="submit-btn" type="submit">Sign Up</button><br>
+                    <button class="submit-btn" type="submit" onclick="signUpUser()">Sign Up</button><br>
                 </div>
             </form>
         </div>
  <embed type="text/html" src="./footer.html" class="footer">
+  <script src="/JS/script.js"></script>
 
-<script src="/JS/script.js"></script>
 </body>
 
 </html>

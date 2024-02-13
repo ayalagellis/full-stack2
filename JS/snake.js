@@ -1,126 +1,157 @@
-let grid = document.querySelector(".grid") 
-let popup = document.querySelector(".popup"); 
-let playAgain = document.querySelector(".playAgain"); 
-let scoreDisplay = document.querySelector(".scoreDisplay") 
-let left = document.querySelector(".left") 
-let bottom = document.querySelector(".bottom") 
-let right = document.querySelector(".right") 
-let up = document.querySelector(".top") 
-let width=10; 
-let currentIndex = 0 
-let appleIndex=0 
-let currentSnake=[2,1,0] 
-let direction =1 
-let score = 0 
-let speed = 0.8 
-let intervalTime =0 
-let interval =0
 
-document.addEventListener("DOMContentLoaded",function(){ 
-document.addEventListener("keyup",control) 
-createBoard() 
-startGame() 
-playAgain.addEventListener("click", replay); 
-})
+var myGamePiece;
+var myObstacles = [];
+var myScore;
+var lastDisplayedScore = -1;
 
-//createboard function
-function createBoard(){ 
-popup.style.display = "none"; 
-for(let i=0;i<100;i++){
-let div =document.createElement("div") 
-grid.appendChild(div) 
+
+
+
+function startGame() {
+    myGamePiece = new component(50, 50, "https://img1.picmix.com/output/stamp/normal/0/8/5/5/1655580_b0b58.gif", 10, 120, "image");
+    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+    myObstacle = new component(10, 200, "green", 300, 120);
+    myGameArea.start();
+  }
+  
+  var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+      this.canvas.width = 1470;
+      this.canvas.height = 630;
+      this.context = this.canvas.getContext("2d");
+      document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+      this.frameNo = 0;       
+      this.interval = setInterval(updateGameArea, 20);
+    },
+    clear : function() {
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+      clearInterval(this.interval);
+    }
+  }
+
+  function everyinterval(n) {
+    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+    return false;
+  }
+  
+
+  
+  function component(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+      }
+    
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.x = x;
+    this.y = y;
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (this.type == "text") {
+          ctx.font = this.width + " " + this.height;
+          ctx.fillStyle = color;
+          ctx.fillText(this.text, this.x, this.y);
+        } 
+        else if(type == "image") {
+            ctx.drawImage(this.image,
+            this.x,
+            this.y,
+            this.width, this.height);        
+        }
+        else {
+          ctx.fillStyle = color;
+          ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+        
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+      }
+
+      this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) ||
+        (mytop > otherbottom) ||
+        (myright < otherleft) ||
+        (myleft > otherright)) {
+          crash = false;
+        }
+        return crash;
+      }
+    
 }
-} 
 
-//startgame function
-function startGame(){ 
-let squares =document.querySelectorAll(".grid div") 
-randomApple(squares) 
-//random apple 
-direction =1 
-scoreDisplay.innerHTML=score 
-intervalTime=1000 
-currentSnake =[2,1,0] 
-currentIndex = 0 
-currentSnake.forEach(index=>squares[index].classList.add("snake")) 
-interval = setInterval(moveOutcome,intervalTime) 
-} 
+function updateGameArea() {
+    var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+    for (i = 0; i < myObstacles.length; i += 1) {
+      if (myGamePiece.crashWith(myObstacles[i])) {
+        myGameArea.stop();
+        saveScore('snake', myScore); 
+              return;
+      }
+    }
+    myGameArea.clear();
+    myGameArea.frameNo += 1;
+    if (myGameArea.frameNo == 1 || everyinterval(400)) {
+      x = myGameArea.canvas.width;
+      minHeight = 20;
+      maxHeight = 200;
+      height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+      minGap = 50;
+      maxGap = 200;
+      gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+      myObstacles.push(new component(10, height, "green", x, 0));
+      myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+    }
+    for (i = 0; i < myObstacles.length; i += 1) {
+      myObstacles[i].x += -1;
+      myObstacles[i].update();
+    }
+    
+    if (myGameArea.frameNo % 50 === 0) {
+        lastDisplayedScore = myGameArea.frameNo;
+    }
 
-function moveOutcome (){ 
-let squares =document.querySelectorAll(".grid div") 
-if(checkForHits(squares)){
-alert("you hit something") 
-popup.style.display="flex" 
-return clearInterval(interval) 
-}else{ 
-moveSnake(squares) 
-}
-} 
+    if (lastDisplayedScore !== -1) {
+        myScore.text = "SCORE: " + lastDisplayedScore;
+        myScore.update();
+    }
+  
+    myGamePiece.newPos();
+    myGamePiece.update();
+  }
+    
+  function moveup() {
+    myGamePiece.speedY -= 1;
+  }
+  
+  function movedown() {
+    myGamePiece.speedY += 1;
+  }
+  
+  function moveleft() {
+    myGamePiece.speedX -= 1;
+  }
+  
+  function moveright() {
+    myGamePiece.speedX += 1;
+  }
 
-function moveSnake(squares){
-let tail = currentSnake.pop() 
-squares[tail].classList.remove("snake") 
-currentSnake.unshift(currentSnake[0]+direction)  
-// movement ends here  
-eatApple(squares,tail)  
-squares[currentSnake[0]].classList.add("snake")  
-}
-
-function checkForHits(squares){  
-if(  
-(currentSnake[0] + width >=(width*width) && direction === width) ||
-(currentSnake[0] % width ===width -1 && direction ===1) ||   
-(currentSnake[0] % width === 0 && direction === -1) ||   
-(currentSnake[0] - width <= 0 && direction === -width) ||
-squares[currentSnake[0] + direction].classList.contains("snake")   
-){ 
-return true  
-}else{  
-return false 
-}
-}  
-
-function eatApple(squares,tail){ 
-if(squares[currentSnake[0]].classList.contains("apple")){ 
-squares[currentSnake[0]].classList.remove("apple") 
-squares[tail].classList.add("snake") 
-currentSnake.push(tail)
-randomApple(squares) 
-score++ 
-scoreDisplay.textContent = score 
-clearInterval(interval) 
-intervalTime = intervalTime *speed 
-interval = setInterval(moveOutcome,intervalTime) 
-}
-} 
-
-function randomApple(squares){ 
-do{ 
-appleIndex =Math.floor(Math.random() * squares.length) 
-}while(squares[appleIndex].classList.contains("snake")) 
-squares[appleIndex].classList.add("apple") 
-} 
-
-function control(e){ 
-if (e.keycode===39){
-direction = 1 // right 
-}else if (e.keycode===38){ 
-direction = -width //if we press the up arrow, the snake will go ten divs up
-}else if (e.keycode===37){ 
-direction = -1 // left, the snake will go left one div
-}else if (e.keycode===40){
-direction = +width // down the snake head will instantly appear 10 divs below from the current div 
-} 
-} 
-
-up.addEventListener("click",()=>direction= -width ) 
-bottom.addEventListener("click",()=>direction= +width ) 
-left.addEventListener("click",()=>direction= -1 ) 
-right.addEventListener("click",()=>direction= 1 )
-
- function replay() { 
- grid.innerHTML="" 
- createBoard()  
- startGame()  
- popup.style.display = "none"; 
- }  
+  
+  
