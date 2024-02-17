@@ -2,14 +2,13 @@
 
 function handleKeyPress(event) {
     if (event.key === "Enter") {
-      // Prevent the default behavior of form submission
-      event.preventDefault();
+      event.preventDefault(); // prevents from stayimg in the same page
   
       // Get the value entered in the search input
       var searchTerm = document.getElementById("searchInput").value.trim();
     
       // Perform a simple search for the game (replace spaces with hyphens for simplicity)
-      var gameUrl = "/HTML/" + searchTerm.toLowerCase().replace(/\s+/g, "-") + ".html";
+      var gameUrl = "/HTML/" + searchTerm.toLowerCase() + ".html";
   
       // Redirect to the URL containing the game
       window.location.href = gameUrl;

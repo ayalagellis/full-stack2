@@ -17,12 +17,16 @@ header {
     color:turquoise;
     padding: 1em;
     text-align: center;
-    height: 100px;
+    height: 120px;
     display: flex;
-    justify-content: space-around;
+    justify-content:center;
     align-items: center;
 
 }
+header h1 {
+    margin: 0; /* Remove default margin */
+}
+
 
 @keyframes fadeIn {
     from {
@@ -35,13 +39,15 @@ header {
 
 .logo {
     width: 30px;
-    height:60px;
+    height: 100px;
     padding: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
     animation: fadeIn 2s linear 1;
-
+    position: absolute; /* Position the logo */
+    top: 10px; /* Position at the top */
+    left: 50px; /* Position at the left */
 }
 
 nav ul {

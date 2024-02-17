@@ -1,157 +1,82 @@
+let id = null;
+let score = 0;
+let isColliding = false;
 
-var myGamePiece;
-var myObstacles = [];
-var myScore;
-var lastDisplayedScore = -1;
-
-
-
-
-function startGame() {
-    myGamePiece = new component(50, 50, "https://img1.picmix.com/output/stamp/normal/0/8/5/5/1655580_b0b58.gif", 10, 120, "image");
-    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
-    myObstacle = new component(10, 200, "green", 300, 120);
-    myGameArea.start();
-  }
+function move(direction) {
+  clearInterval(id);
+  id = setInterval(frame, 10); // Adjusted speed
   
-  var myGameArea = {
-    canvas : document.createElement("canvas"),
-    start : function() {
-      this.canvas.width = 1470;
-      this.canvas.height = 630;
-      this.context = this.canvas.getContext("2d");
-      document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-      this.frameNo = 0;       
-      this.interval = setInterval(updateGameArea, 20);
-    },
-    clear : function() {
-      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    },
-    stop : function() {
-      clearInterval(this.interval);
+  const container = document.getElementById("container");
+  var animate = document.getElementById("animate"); 
+  var elem = animate.querySelector("img"); 
+  const blueBox = document.getElementById("blueBox");
+  
+  let posTop = parseInt(elem.style.top) || 0;
+  let posLeft = parseInt(elem.style.left) || 0;
+  let blueTop = parseInt(blueBox.style.top) || 0;
+  let blueLeft = parseInt(blueBox.style.left) || 0;
+  
+  function frame() {
+    switch (direction) {
+      case 'up':
+        if (posTop > 0) {
+          posTop--;
+          elem.style.top = posTop + "px"; 
+        }
+        break;
+      case 'down':
+        if (posTop < container.clientHeight - elem.clientHeight) {
+          posTop++;
+          elem.style.top = posTop + "px"; 
+        }
+        break;
+      case 'left':
+        if (posLeft > 0) {
+          posLeft--;
+          elem.style.left = posLeft + "px"; 
+        }
+        break;
+      case 'right':
+        if (posLeft < container.clientWidth - elem.clientWidth) {
+          posLeft++;
+          elem.style.left = posLeft + "px"; 
+        }
+        break;
+      default:
+        break;
+    }
+    
+    // Check for collision with blue box with some tolerance
+    if (!isColliding && posTop + elem.clientHeight >= blueTop && posTop <= blueTop + blueBox.clientHeight &&
+        posLeft + elem.clientWidth >= blueLeft && posLeft <= blueLeft + blueBox.clientWidth) {
+      isColliding = true;
+      score++;
+      document.getElementById("scoreValue").innerText = score;
+      blueBox.style.display = "none";
+      setTimeout(() => {
+      showBlueBox()
+        setTimeout(() => {
+          isColliding = false;
+        }, 100); 
+      }, 1500);
     }
   }
-
-  function everyinterval(n) {
-    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
-    return false;
-  }
-  
-
-  
-  function component(width, height, color, x, y, type) {
-    this.type = type;
-    if (type == "image") {
-        this.image = new Image();
-        this.image.src = color;
-      }
-    
-    this.width = width;
-    this.height = height;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.x = x;
-    this.y = y;
-    this.update = function() {
-        ctx = myGameArea.context;
-        if (this.type == "text") {
-          ctx.font = this.width + " " + this.height;
-          ctx.fillStyle = color;
-          ctx.fillText(this.text, this.x, this.y);
-        } 
-        else if(type == "image") {
-            ctx.drawImage(this.image,
-            this.x,
-            this.y,
-            this.width, this.height);        
-        }
-        else {
-          ctx.fillStyle = color;
-          ctx.fillRect(this.x, this.y, this.width, this.height);
-        }
-    }
-        
-    this.newPos = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-      }
-
-      this.crashWith = function(otherobj) {
-        var myleft = this.x;
-        var myright = this.x + (this.width);
-        var mytop = this.y;
-        var mybottom = this.y + (this.height);
-        var otherleft = otherobj.x;
-        var otherright = otherobj.x + (otherobj.width);
-        var othertop = otherobj.y;
-        var otherbottom = otherobj.y + (otherobj.height);
-        var crash = true;
-        if ((mybottom < othertop) ||
-        (mytop > otherbottom) ||
-        (myright < otherleft) ||
-        (myleft > otherright)) {
-          crash = false;
-        }
-        return crash;
-      }
-    
 }
 
-function updateGameArea() {
-    var x, height, gap, minHeight, maxHeight, minGap, maxGap;
-    for (i = 0; i < myObstacles.length; i += 1) {
-      if (myGamePiece.crashWith(myObstacles[i])) {
-        myGameArea.stop();
-        saveScore('snake', myScore); 
-              return;
-      }
-    }
-    myGameArea.clear();
-    myGameArea.frameNo += 1;
-    if (myGameArea.frameNo == 1 || everyinterval(400)) {
-      x = myGameArea.canvas.width;
-      minHeight = 20;
-      maxHeight = 200;
-      height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-      minGap = 50;
-      maxGap = 200;
-      gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-      myObstacles.push(new component(10, height, "green", x, 0));
-      myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
-    }
-    for (i = 0; i < myObstacles.length; i += 1) {
-      myObstacles[i].x += -1;
-      myObstacles[i].update();
-    }
-    
-    if (myGameArea.frameNo % 50 === 0) {
-        lastDisplayedScore = myGameArea.frameNo;
-    }
+function getRandomPosition(max) {
+  return Math.floor(Math.random() * max) + 'px';
+}
 
-    if (lastDisplayedScore !== -1) {
-        myScore.text = "SCORE: " + lastDisplayedScore;
-        myScore.update();
-    }
-  
-    myGamePiece.newPos();
-    myGamePiece.update();
-  }
-    
-  function moveup() {
-    myGamePiece.speedY -= 1;
-  }
-  
-  function movedown() {
-    myGamePiece.speedY += 1;
-  }
-  
-  function moveleft() {
-    myGamePiece.speedX -= 1;
-  }
-  
-  function moveright() {
-    myGamePiece.speedX += 1;
-  }
+function showBlueBox() {
+  const blueBox = document.getElementById("blueBox");
+  blueBox.style.display = "block";
+  blueBox.style.top = getRandomPosition(container.clientHeight - blueBox.clientHeight);
+  blueBox.style.left = getRandomPosition(container.clientWidth - blueBox.clientWidth);
+}
 
-  
-  
+// Show blue box and start game
+showBlueBox();
+move('right'); // Start moving the red box
+
+// Show blue box every 10 seconds
+setInterval(showBlueBox, 10000);

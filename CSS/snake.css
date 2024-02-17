@@ -1,17 +1,43 @@
 
-canvas {
-    border: 1px solid #d3d3d3;
-    background-color: rgb(10, 132, 232);
-}
+#container {
+    width: 1450px;
+    height: 600px;
+    position: relative;
+    background: rgb(8, 218, 226);
+  }
+  
+  #animate img {
+    width: 100px; 
+    height: 100px; 
+    position: absolute;
 
-.container {
-    text-align: center; /* Center-align the buttons */
+  }
+    
+.blue-box {
+    background-color: blue;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+
+  }
+  #score {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    font-size:larger;
   }
   
 
-button {
+
+  .home-button {
+    position: absolute; 
+    bottom: 3px; 
+    right: 25px; 
+  }
+
+  button {
     display: inline-block; /* Display buttons inline */
-    width: 120px; /* Set width for each button */
+    width: auto; /* Set width for each button */
     margin-right: 10px; /* Add margin between buttons */
     margin-top: 15px;
     padding: 10px; /* Add padding for button content */
@@ -19,16 +45,5 @@ button {
     font-size: larger;
   }
 
-  .restart {
-    position: absolute; /* Position the button absolutely */
-    bottom: 35px; /* Align the button to the bottom */
-    right: 10px; /* Align the button to the right */
-  }
-
-  .home-button {
-    position: absolute; /* Set home button to absolute positioning */
-    bottom: 35px; /* 10px from the bottom */
-    left: 25px; /* 10px from the left */
-  }
   
   

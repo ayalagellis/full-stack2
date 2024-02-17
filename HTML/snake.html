@@ -7,18 +7,26 @@
 </head>
 
 
-<body onload="startGame()">
+<body>
 
-    <div class="container">
-        <button onclick="moveup()">UP</button>
-        <button onclick="movedown()">DOWN</button>
-        <button onclick="moveleft()">LEFT</button>
-        <button onclick="moveright()">RIGHT</button>
-        <a href="/HTML/games.html" class="home-button">
+    <div id ="container">
+      <div id ="animate">
+        <img src="https://img1.picmix.com/output/stamp/normal/0/8/5/5/1655580_b0b58.gif">
+      </div>
+      <div id="blueBox" class="box blue-box"></div>
+
+    </div>
+            <a href="/HTML/games.html" class="home-button">
             <img src="https://png.pngtree.com/png-clipart/20221219/original/pngtree-cartoon-house-illustration-png-image_8780795.png" alt="Home" width="40" height="40">
         </a>
-        <button class="restart" onclick="startGame()">RESTART</button>      
-      </div>
+        <button onclick="move('up')">Up</button>
+        <button onclick="move('down')">Down</button>
+        <button onclick="move('left')">Left</button>
+        <button onclick="move('right')">Right</button>
+
+        <div id="score">Score: <span id="scoreValue">0</span></div>
+
+            
       
 <script src="/JS/snake.js"></script>
 

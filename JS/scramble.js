@@ -1,4 +1,3 @@
-// script.js 
 
 const words = [ 
 	"Pesach", 
@@ -13,7 +12,7 @@ let score = 0; // Score variable to keep track of the user's score
 // Initialize display word 
 let displayWord = ""; 
 
-// Function to shuffle letters 
+// Function to mix letters 
 function mixWord(str) { 
 	strArray = Array.from(str); 
 	for (let i = 0; i < strArray.length - 1; ++i) { 
@@ -29,29 +28,27 @@ function mixWord(str) {
 // Function to check input and display result 
 function check() { 
 	let input = document.getElementById("input"); 
-	let output = document.getElementById("output"); 
 	if ( 
 		input.value.toLocaleLowerCase() === 
 		displayWord.toLocaleLowerCase() 
 	) {
-		output.innerHTML = "Result: Correct"; 
+        alert("Correct")
         score++; // Increment score if the guess is correct
         scoreDisplay.innerText = "Score: " + score; // Update the score display
+        document.getElementById("input").value = ""; //cleans the input field
+        newWord();
     }
 
-	else {output.innerHTML = "Result: Incorrect"; }
+	else {alert("Incorrect")}
 } 
 
-// To refresh and show new word 
-function refresh() { 
+// To show new word 
+function newWord() { 
 	index = Math.floor(Math.random() * 5); 
 	displayWord = words[index]; 
-	scrambleWord = 
-		document.getElementById("scrambleWord"); 
-	scrambleWord.innerText = 
-    mixWord(displayWord).toUpperCase(); 
-	document.getElementById("output").innerText = "Result:"; 
+	scrambleWord = document.getElementById("scrambleWord"); 
+	scrambleWord.innerText = mixWord(displayWord).toUpperCase(); 
 } 
 
 // Function call when page load for first time 
-refresh();
+newWord();
