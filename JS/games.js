@@ -16,4 +16,16 @@ function handleKeyPress(event) {
 
     }
   }
+
+  function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
+
   
+  function logoutUser() {
+    eraseCookie('name');
+    eraseCookie('pw');
+    localStorage.removeItem('name');
+    localStorage.removeItem('pw');
+    alert("You have been logged out, Goodbye!");
+}

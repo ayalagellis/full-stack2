@@ -73,7 +73,7 @@
   
   }
 
-  .row1 {
+ .row1 {
     padding-top: 100px;
     display: flex;
   }
@@ -90,6 +90,17 @@
 
   .column img {
     width: 100%;
-    height: 400px; /* Make sure the images fill the column */
-    object-fit: contain, cover; /* Maintain aspect ratio */
+    height: 400px; 
+    object-fit: contain, cover; 
+  } 
+
+  @media only screen and (max-width: 480px) {
+    .row1{
+      padding-top: 240px;
+      flex-wrap:wrap ;
+      }  
+    
+    .row{
+    flex-wrap:wrap ;
+    }
   }

@@ -20,10 +20,6 @@ function getCookie(name) {
     return null;
 }
 
-function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;';
-}
-
 
 function loginUser(){
     var storedNameCookie = getCookie('name');
@@ -55,13 +51,13 @@ function loginUser(){
        var numbers = /[0-9]/g;
 
     if(name.value.length == 0){
-        alert('Please fill in email');
+        alert('Please fill in name');
 
     }else if(pw.value.length == 0){
         alert('Please fill in password');
 
     }else if(name.value.length == 0 && pw.value.length == 0){
-        alert('Please fill in email and password');
+        alert('Please fill in name and password');
 
     }else if(pw.value.length < 8){
         alert('Min of 8');
@@ -89,3 +85,5 @@ function loginUser(){
     }
       
 }
+
+

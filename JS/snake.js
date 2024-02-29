@@ -1,10 +1,10 @@
-let id = null;
+let id = null; //interval id for movement of red box
 let score = 0;
 let isColliding = false;
 
-function move(direction) {
-  clearInterval(id);
-  id = setInterval(frame, 10); // Adjusted speed
+function move(direction) { //moves red box to a certain direction
+  clearInterval(id); //one interval at a time- cancels the 10 msecond interval
+  id = setInterval(frame, 10); // sets a new interval-Adjusted speed
   
   const container = document.getElementById("container");
   var animate = document.getElementById("animate"); 
@@ -16,10 +16,10 @@ function move(direction) {
   let blueTop = parseInt(blueBox.style.top) || 0;
   let blueLeft = parseInt(blueBox.style.left) || 0;
   
-  function frame() {
+  function frame() { //updates position of fish
     switch (direction) {
       case 'up':
-        if (posTop > 0) {
+        if (posTop > 0) { //in boundary of container
           posTop--;
           elem.style.top = posTop + "px"; 
         }
@@ -46,37 +46,38 @@ function move(direction) {
         break;
     }
     
-    // Check for collision with blue box with some tolerance
+    // Check for collision with blue box 
     if (!isColliding && posTop + elem.clientHeight >= blueTop && posTop <= blueTop + blueBox.clientHeight &&
-        posLeft + elem.clientWidth >= blueLeft && posLeft <= blueLeft + blueBox.clientWidth) {
+        posLeft + elem.clientWidth >= blueLeft && posLeft <= blueLeft + blueBox.clientWidth) { //bottom of fish passes top of blue box, top passes bottom, etc
       isColliding = true;
       score++;
       document.getElementById("scoreValue").innerText = score;
       blueBox.style.display = "none";
-      setTimeout(() => {
+      setTimeout(() => { //show blue box after 1.5 secs
       showBlueBox()
         setTimeout(() => {
-          isColliding = false;
-        }, 100); 
+          isColliding = false; //reseting again to give time to detect collision
+        }, 1500); 
       }, 1500);
     }
   }
 }
 
-function getRandomPosition(max) {
+function getRandomPosition(max) {  //returns a random (number)position betwen 0 and max
   return Math.floor(Math.random() * max) + 'px';
 }
 
-function showBlueBox() {
+function showBlueBox() { //shows blue box at random position
   const blueBox = document.getElementById("blueBox");
   blueBox.style.display = "block";
-  blueBox.style.top = getRandomPosition(container.clientHeight - blueBox.clientHeight);
+  blueBox.style.top = getRandomPosition(container.clientHeight - blueBox.clientHeight);//random position within the vertical range of the container
   blueBox.style.left = getRandomPosition(container.clientWidth - blueBox.clientWidth);
 }
 
-// Show blue box and start game
-showBlueBox();
-move('right'); // Start moving the red box
 
-// Show blue box every 10 seconds
-setInterval(showBlueBox, 10000);
+
+//The beginning of the game
+showBlueBox();// Show blue box and start game
+move('right'); // Start moving the red box
+setInterval(showBlueBox, 10000);// Show blue box every 10 seconds
+
